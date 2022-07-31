@@ -1,0 +1,24 @@
+package three;
+	
+
+public class Car {
+	String color;
+	int price,door,volume;
+ public Car(String color,int price,int door,int volume) {
+	 this.color = color;
+	 this.price = price;
+	 this.door = door;
+	 this.volume = volume;
+ }
+  
+ public void autoDrive() {
+	 System.out.print("正在啟動自動駕駛");
+	 
+ }
+ public void displayCar() {
+	 System.out.println("顏色：" + this.color);
+	 System.out.println("門數：" + this.door);
+	 System.out.println("價格：" + this.price);
+	 System.out.println("排氣量：" + this.volume);
+ }
+}
