@@ -1,0 +1,80 @@
+.profile-img{
+ 
+
+    /* 置中 */
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    width:60%;
+
+    margin-top:-80px;
+}
+
+.card{
+    background-color: beige;
+    height:500px;
+
+ 
+
+    margin:50px;
+}
+body{
+    background-color: gray;
+}
+nav{
+    height:65px;
+}
+.navbar{
+    background-color: indigo;
+}
+
+li a {
+    color:yellow !important;
+    font-size:20px;
+   
+}
+li a:hover{
+    color:indigo !important;
+    background-color: lightyellow;
+    
+}
+.navbar-toggler{
+    background-color: lightgray;
+}
+
+.nav-link {
+    padding:20px;
+}
+
+@media (max-width:600px){
+    nav{
+        height:auto;
+    }
+    .nav-link {
+        padding:10px;
+    }
+}
+.banner-image{
+
+    background-image: url(images/background.png);
+    height:200px;
+    width:100%;
+    background-position: center;
+ 
+    border-top-left-radius: 20%;
+    border-top-right-radius: 20%;
+}
+
+.btn{
+    width:100%;
+    border:none;
+    font-size:20px;
+    color:white;
+    background-color:blueviolet;
+    padding:20px;
+
+    /* 移到下方 */
+    position:absolute;
+    bottom:0;
+    left:0;
+}
