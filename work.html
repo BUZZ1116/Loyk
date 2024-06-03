@@ -31,6 +31,21 @@
             border: none;
             cursor: pointer;
         }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .controls button {
+            background-color: #4b0082; /* 深紫色 */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .controls button:hover {
+            background-color: #370061; /* 深紫色的更深色 */
+        }
         .modal-content {
             text-align: center;
         }
@@ -53,6 +68,7 @@
         <header>
             紫竹藝苑<br>
         </header>
+
         <div class="owl-carousel owl-theme">
             <div class="item" v-for="(image, index) in images" :key="index" @click="showModal(image)">
                 <iframe :src="image" :title="`Image ${index + 1}`"></iframe>
@@ -68,17 +84,24 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        
                     </div>
                     <div class="modal-body">
                         <iframe :src="modalImage" class="img-fluid" allow="autoplay"></iframe>
                     </div>
+                    
                 </div>
             </div>
+        </div>
+
+        <div class="controls">
+            <button @click="changeAutoplaySpeed(-1000)">-1000ms</button>
+            <button @click="changeAutoplaySpeed(1000)">+1000ms</button>
         </div>
     </div>
 
     <footer>
-
+        <!-- 你可以在这里添加页脚内容 -->
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -90,7 +113,7 @@
             el: '#app',
             data: {
                 images: [
-                   'https://drive.google.com/file/d/16pzYpHkCKZs1DzSAsM3IzcZp8AoAsnc8/preview',
+                    'https://drive.google.com/file/d/16pzYpHkCKZs1DzSAsM3IzcZp8AoAsnc8/preview',
                     'https://drive.google.com/file/d/1rb3k8mwDMSMuAplqeRgrt57OE3_Riwd-/preview',
                     'https://drive.google.com/file/d/1JGWmWIq6EyfypgdDd42COw-vqmt1zbJh/preview',
                     'https://drive.google.com/file/d/1_fQPcJZqk9P-rtHdlHZ3zC_uAsnlNKV5/preview',
@@ -99,28 +122,31 @@
                     'https://drive.google.com/file/d/1lmZbZw0XV3T3bK69XBefQwn7SreMWCt_/preview',
                     'https://drive.google.com/file/d/1i5bS7aCDDcuS2dDUnrVWltQUqWye4GRZ/preview',
                     'https://drive.google.com/file/d/1ZflvRbmtNIV5JLwEd0s1-PkmDYQou5AE/preview',
-
                 ],
-                modalImage: ''
+                modalImage: '',
+                autoplayTimeout: 5000 // 設定自動播放的初始間隔時間 (以毫秒為單位)
             },
             methods: {
                 showModal(image) {
                     this.modalImage = image;
                     $('#imageModal').modal('show');
-                }
-            },
-            mounted() {
-                const vm = this;
-                this.$nextTick(function() {
+                },
+                changeAutoplaySpeed(delta) {
+                    this.autoplayTimeout = Math.max(1000, this.autoplayTimeout + delta); // 設定最小間隔時間為1000毫秒
+                    this.updateCarousel();
+                },
+                updateCarousel() {
+                    const vm = this;
+                    $(vm.$el).find('.owl-carousel').trigger('destroy.owl.carousel');
                     $(vm.$el).find('.owl-carousel').owlCarousel({
                         loop: true,
                         margin: 10,
                         nav: true,
                         mouseDrag: true,
-                        touchDrag: true, // 啟用手指滑動
-                        pullDrag: true, // 啟用拖拽
-                        autoplay: true, // 啟用自動播放
-                        autoplayTimeout: 4000, // 設定自動播放的間隔時間 (以毫秒為單位)
+                        touchDrag: true, // 启用手指滑动
+                        pullDrag: true, // 启用拖拽
+                        autoplay: true, // 启用自動播放
+                        autoplayTimeout: this.autoplayTimeout, // 更新自動播放的間隔時間 (以毫秒為單位)
                         responsive: {
                             0: {
                                 items: 1
@@ -133,7 +159,10 @@
                             }
                         }
                     });
-                });
+                }
+            },
+            mounted() {
+                this.updateCarousel();
             }
         });
     </script>
